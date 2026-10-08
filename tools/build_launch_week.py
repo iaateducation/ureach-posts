@@ -37,7 +37,7 @@ html,body{width:1080px;height:1350px;background:var(--ink);overflow:hidden}
 .panel{position:absolute;left:0;right:0;bottom:0;padding:0 72px 64px}
 .kicker{display:inline-flex;align-items:center;gap:14px;font:700 24px/1 'Body';letter-spacing:.22em;text-transform:uppercase;color:var(--orange)}
 .kicker:before{content:"";width:44px;height:3px;background:var(--orange)}
-h1{font:900 104px/0.96 'Display';letter-spacing:-.025em;margin-top:26px;color:var(--cream);text-wrap:balance}
+h1{font:900 112px/0.96 'Display';letter-spacing:-.025em;margin-top:26px;color:var(--cream);text-wrap:balance}
 h1 em{font-style:normal;color:var(--orange)}
 .gr{font:600 34px/1.25 'Display';color:var(--muted);margin-top:22px}
 .row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-top:40px}
@@ -69,7 +69,6 @@ def photo_post(img, photo_h, pos, kicker, h1, gr, detail, plabel, price, extra="
 <div class="panel">
   <div class="kicker">{kicker}</div>
   <h1>{h1}</h1>
-  <div class="gr">{gr}</div>
   <div class="row"><div class="detail">{detail}</div>
   <div class="price"><small>{plabel}</small><b>{price}</b></div></div>
   {FOOT}
@@ -83,7 +82,7 @@ browser = f"""
 <div style="position:absolute;left:72px;right:72px;top:96px;height:560px;border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 40px 90px -20px rgba(0,0,0,.7)">
   <div style="height:54px;background:#f1ebe3;display:flex;align-items:center;gap:10px;padding:0 22px">
     <i style="width:14px;height:14px;border-radius:50%;background:#e8705f"></i><i style="width:14px;height:14px;border-radius:50%;background:#efbd4e"></i><i style="width:14px;height:14px;border-radius:50%;background:#7cc06b"></i>
-    <span style="margin-left:18px;flex:1;max-width:520px;background:#fff;border-radius:10px;padding:9px 16px;font:500 19px 'Body';color:#7d6f62">thalassa-kitchen.cy</span></div>
+    <span style="margin-left:18px;flex:1;max-width:520px;background:#fff;border-radius:10px;padding:9px 16px;font:500 19px 'Body';color:#7d6f62">thalassa-kitchen.com</span></div>
   <div style="position:relative;height:506px">
     <img src="{b64(SRC/'ur00.jpg')}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 60%">
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,12,6,.72),rgba(20,12,6,.05) 70%)"></div>
@@ -91,7 +90,7 @@ browser = f"""
       <span style="font:800 24px 'Display';letter-spacing:.02em">THALASSA</span><span style="opacity:.9">MENU &nbsp; ABOUT &nbsp; CONTACT</span></div>
     <div style="position:absolute;left:40px;bottom:46px;color:#fff">
       <div style="font:800 52px/1 'Display';letter-spacing:-.01em">Dinner by the sea</div>
-      <div style="font:500 22px 'Body';opacity:.9;margin-top:12px">Fresh fish &amp; meze · Limassol</div>
+      <div style="font:500 22px 'Body';opacity:.9;margin-top:12px">Fresh fish &amp; meze by the sea</div>
       <div style="display:inline-block;margin-top:22px;background:#ef9b3c;color:#1a120c;font:700 21px 'Body';padding:14px 24px;border-radius:999px">Book a table</div>
     </div>
   </div>
@@ -102,7 +101,6 @@ POSTS["01-free-website"] = page(f"""
 <div class="panel">
   <div class="kicker">Websites</div>
   <h1>Your website.<br><em>First draft free.</em></h1>
-  <div class="gr">Η ιστοσελίδα σας. Το πρώτο σχέδιο δωρεάν.</div>
   <div class="row"><div class="detail">Love it, then pay a small monthly plan. Don’t love it, pay nothing.</div>
   <div class="price"><small>Then from</small><b>€29<span>/mo</span></b></div></div>
   {FOOT}
@@ -126,8 +124,7 @@ POSTS["03-social-media"] = page(f"""
 <div class="panel">
   <div class="kicker">Social media</div>
   <h1>12 posts a month.<br><em>Done for you.</em></h1>
-  <div class="gr">12 αναρτήσεις τον μήνα, έτοιμες για εσάς.</div>
-  <div class="row"><div class="detail">Designed posts with captions in English and Greek. Scheduling included.</div>
+  <div class="row"><div class="detail">Designed posts with captions in your language. Scheduling included.</div>
   <div class="price"><small>Monthly</small><b>€149<span>/mo</span></b></div></div>
   {FOOT}
 </div>""")
@@ -188,6 +185,6 @@ with sync_playwright() as p:
         pg.goto(f.as_uri())
         pg.wait_for_timeout(400)
         pg.evaluate("document.fonts.ready")
-        pg.screenshot(path=str(OUT / f"{name}.png"))
+        pg.screenshot(path=str(OUT / f"{name}.jpg"), type="jpeg", quality=92)
         print("rendered", name)
     b.close()
